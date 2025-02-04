@@ -8,11 +8,11 @@ public class Shooter {
     private double timeRecharged = 0;
     private Color colour;
 
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private double rotation;
 
-    public Shooter(int x, int y, Color colour) {
+    public Shooter(double x, double y, Color colour) {
         this.x = x;
         this.y = y;
         this.colour = colour;
@@ -21,23 +21,44 @@ public class Shooter {
     public void shoot() {
         if (timeRecharged >= rechargeTime) {
             timeRecharged = 0;
+
+            Constants.bullets.add(new Bullet(x + radius * Math.cos(rotation), y + radius * Math.sin(rotation), rotation));
         }
     }
 
+    public void damage(int damage) {
+        health -= damage;
+        if (health < 0) {
+            Constants.shooters.remove(this);
+        }
+    }
+
+    public double distTo(double x, double y) {
+        return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void pointTo(int x, int y) {
+        rotation = Math.atan2(y - this.y, x - this.x);
+    }
+
     public void moveUp() {
-        y -= 1;
+        y -= 0.5 / Constants.FPS;
     }
 
     public void moveDown() {
-        y += 1;
+        y += 0.5 / Constants.FPS;
     }
 
     public void moveLeft() {
-        x -= 1;
+        x -= 0.5 / Constants.FPS;
     }
 
     public void moveRight() {
-        x += 1;
+        x += 0.5 / Constants.FPS;
     }
 
     public void update() {
@@ -46,10 +67,10 @@ public class Shooter {
 
     public void draw(Graphics g) {
         g.setColor(colour);
-        g.fillOval(x - radius, y - radius, radius * 2, radius * 2);
+        g.fillOval((int) Math.round(x) - radius, (int) Math.round(y) - radius, radius * 2, radius * 2);
 
         // Draw gun pointing in direction of rotation
         g.setColor(new Color(50, 50, 50));
-        g.drawLine(x, y, (int) (x + Math.cos(rotation) * radius * 2), (int) (y + Math.sin(rotation) * radius * 2));
+        g.drawLine((int) Math.round(x), (int) Math.round(y), (int) (x + Math.cos(rotation) * radius * 2), (int) (y + Math.sin(rotation) * radius * 2));
     }
 }
