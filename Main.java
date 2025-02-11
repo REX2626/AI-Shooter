@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Color;
-
+import java.awt.Font;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.MouseInfo;
@@ -23,7 +23,7 @@ public class Main {
 
         // Add enemies
         for (int i = 1; i < Constants.NUM_SHOOTERS; i++) {
-            Constants.shooters.add(new Shooter((int) (Math.random() * Constants.WIDTH), (int) (Math.random() * Constants.HEIGHT),
+            Constants.shooters.add(new Enemy((int) (Math.random() * Constants.WIDTH), (int) (Math.random() * Constants.HEIGHT),
                     new Color(255, 0, 0)));
         }
 
@@ -32,7 +32,7 @@ public class Main {
         frame.setVisible(true);
 
         // Generations
-        for (int i = 0; i < Constants.NUM_GENERATIONS; i++) {
+        for (Constants.GENERATION = 0; Constants.GENERATION < Constants.NUM_GENERATIONS; Constants.GENERATION++) {
 
             // 600 ticks per walker
             for (int j = 0; j < 600; j++) {
@@ -102,6 +102,10 @@ public class Main {
             for (Bullet bullet : Constants.bullets) {
                 bullet.draw(g);
             }
+
+            Font font = getFont().deriveFont(20.0f);
+            g.setFont(font);
+            g.drawString("Generation: " + Constants.GENERATION, 20, 30);
         }
     }
 }

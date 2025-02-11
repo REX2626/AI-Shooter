@@ -4,7 +4,7 @@ import java.awt.Color;
 public class Shooter {
     private int radius = 10;
     private int health = 100;
-    private double rechargeTime = 0.5;
+    private double rechargeTime = 0.3;
     private double timeRecharged = 0;
     private Color colour;
 
@@ -59,6 +59,14 @@ public class Shooter {
 
     public void moveRight() {
         x += 0.5 / Constants.FPS;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 
     public void update() {

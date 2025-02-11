@@ -9,6 +9,7 @@ public class Constants {
 
     public static final int NUM_SHOOTERS = 40;
     public static final int NUM_GENERATIONS = 500;
+    public static int GENERATION;
 
     public static List<Shooter> shooters = new ArrayList<Shooter>();
     public static List<Bullet> bullets = new ArrayList<Bullet>();
